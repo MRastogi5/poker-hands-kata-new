@@ -64,9 +64,10 @@ public class Game {
 
     public void checkCombination(Player firstPlayer) {
         Map<String, Boolean> combinations = new HashMap<>();
-        //straightFlush
+
         //isStraightflush
-        //isFourOfAKind
+
+        combinations.put("isFourOfAKind", isFourOfAKind(firstPlayer));
         combinations.put("isFullHouse", isFullHouse(firstPlayer));
         combinations.put("isFlush",isFlush(firstPlayer));//isFlush
         combinations.put("isStraight",isStraight(firstPlayer));
@@ -76,17 +77,35 @@ public class Game {
         //hasHignCard(black,white);
     }
 
+    public Boolean isFourOfAKind(Player player) {
+        //4 cards with the same value
+        List<Card> cards = player.getCards();
+        int i = 0;
+        if(cards.get(i).getRank()==cards.get(i+1).getRank()
+             && cards.get(i+1).getRank()==cards.get(i+2).getRank()
+                && cards.get(i+2).getRank()==(cards.get(i+3).getRank())){
+            return true;
+        }
+        else if(cards.get(i+1).getRank()==cards.get(i+2).getRank()
+                && cards.get(i+2).getRank()==(cards.get(i+3).getRank())
+                && cards.get(i+3).getRank()==cards.get(i+4).getRank()){
+            return true;
+        }
+        return false;
+    }
+
+
     public Boolean isFullHouse(Player player) {
         //3 cards of the same value, with the remaining 2 cards forming a pair.
         List<Card> cards = player.getCards();
-    int i=1;
-            if((cards.get(i-1).getRank()==cards.get(i).getRank()
-                    && cards.get(i).getRank()==cards.get(i+1).getRank())
-                    && cards.get(i+2).getRank().equals(cards.get(i+3).getRank())){
+        int i=0;
+            if((cards.get(i).getRank()==cards.get(i+1).getRank()
+                    && cards.get(i+1).getRank()==cards.get(i+2).getRank())
+                    && cards.get(i+3).getRank().equals(cards.get(i+4).getRank())){
                 return true;
             }
-            else if((cards.get(i-1).getRank().equals(cards.get(i).getRank()))&&(cards.get(i+1).getRank()==cards.get(i+2).getRank()
-                    && cards.get(i+2).getRank()==cards.get(i+3).getRank())){
+            else if((cards.get(i).getRank().equals(cards.get(i+1).getRank()))&&(cards.get(i+2).getRank()==cards.get(i+3).getRank()
+                    && cards.get(i+3).getRank()==cards.get(i+4).getRank())){
                 return true;
             }
 

@@ -74,7 +74,49 @@ public class GameTest {
 
 
 
+    @Test
+    void testIsFourOfAKind(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.KING, Suit.Heart));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        cards.add(new Card(Rank.TEN, Suit.Spade));
+        cards.add(new Card(Rank.KING, Suit.Club));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(true,
+                game.isFourOfAKind(p));
 
+    }
+    @Test
+    void testIsFourOfAKind2(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.TEN, Suit.Diamond));
+        cards.add(new Card(Rank.TEN, Suit.Spade));
+        cards.add(new Card(Rank.TEN, Suit.Club));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(true,
+                game.isFourOfAKind(p));
+
+    }
+
+    @Test
+    void testIsNotFourOfAKind(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.TEN, Suit.Diamond));
+        cards.add(new Card(Rank.TEN, Suit.Spade));
+        cards.add(new Card(Rank.KING, Suit.Club));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(false,
+                game.isFourOfAKind(p));
+
+    }
     @Test
     void testIsFullHouse(){
         List<Card> cards = new ArrayList<>();
