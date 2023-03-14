@@ -82,8 +82,8 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Heart));
         cards.add(new Card(Rank.ACE, Suit.Heart));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(true,  game.isStraightflush(p));
+
+        assertEquals(true,  game.isStraightflush(p.getSortedCards()));
     }
     @Test
     void testIsNotStraightFlush(){
@@ -94,8 +94,7 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Heart));
         cards.add(new Card(Rank.ACE, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(false,  game.isStraightflush(p));
+        assertEquals(false,  game.isStraightflush(p.getSortedCards()));
     }
 
     @Test
@@ -107,9 +106,8 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(true,
-                game.isFourOfAKind(p));
+                game.isFourOfAKind(p.getSortedCards()));
 
     }
     @Test
@@ -121,9 +119,8 @@ public class GameTest {
         cards.add(new Card(Rank.TEN, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(true,
-                game.isFourOfAKind(p));
+                game.isFourOfAKind(p.getSortedCards()));
 
     }
 
@@ -136,9 +133,8 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(false,
-                game.isFourOfAKind(p));
+                game.isFourOfAKind(p.getSortedCards()));
 
     }
     @Test
@@ -150,8 +146,7 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(true,  game.isFullHouse(p));
+        assertEquals(true,  game.isFullHouse(p.getSortedCards()));
     }
     @Test
     void testIsFullHouse2(){
@@ -162,9 +157,8 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(true,
-                game.isFullHouse(p));
+                game.isFullHouse(p.getSortedCards()));
 
     }
     @Test
@@ -176,9 +170,8 @@ public class GameTest {
         cards.add(new Card(Rank.QUEEN, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(false,
-                game.isFullHouse(p));
+                game.isFullHouse(p.getSortedCards()));
 
     }
 
@@ -191,9 +184,7 @@ public class GameTest {
         cards.add(new Card(Rank.SIX, Suit.Heart));
         cards.add(new Card(Rank.FOUR, Suit.Heart));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(true, game.isFlush(p));
-
+        assertEquals(true, game.isFlush(p.getSortedCards()));
     }
 
     @Test
@@ -205,8 +196,7 @@ public class GameTest {
         cards.add(new Card(Rank.SIX, Suit.Heart));
         cards.add(new Card(Rank.FOUR, Suit.Club));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(false,game.isFlush(p));
+        assertEquals(false,game.isFlush(p.getSortedCards()));
     }
 
     @Test
@@ -218,9 +208,8 @@ public class GameTest {
         cards.add(new Card(Rank.SIX, Suit.Club));
         cards.add(new Card(Rank.FOUR, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(true,
-                game.isStraight(p));
+                game.isStraight(p.getSortedCards()));
 
     }
 
@@ -233,10 +222,7 @@ public class GameTest {
         cards.add(new Card(Rank.SEVEN, Suit.Club));
         cards.add(new Card(Rank.FOUR, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(false,
-                game.isStraight(p));
-
+        assertEquals(false, game.isStraight(p.getSortedCards()));
     }
 
     @Test
@@ -248,10 +234,8 @@ public class GameTest {
         cards.add(new Card(Rank.FIVE, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(true,
-                game.isThreeOfAKind(p));
-
+                game.isThreeOfAKind(p.getSortedCards()));
     }
 
     @Test
@@ -263,10 +247,8 @@ public class GameTest {
         cards.add(new Card(Rank.FIVE, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
         assertEquals(false,
-                game.isThreeOfAKind(p));
-
+                game.isThreeOfAKind(p.getSortedCards()));
     }
     @Test
     void testHasTwoPair(){
@@ -277,10 +259,7 @@ public class GameTest {
         cards.add(new Card(Rank.TWO, Suit.Club));
         cards.add(new Card(Rank.FIVE, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-
-        assertEquals(true, game.hasTwoPairs(p));
-
+        assertEquals(true, game.hasTwoPairs(p.getSortedCards()));
     }
 
     @Test
@@ -292,10 +271,7 @@ public class GameTest {
         cards.add(new Card(Rank.SEVEN, Suit.Club));
         cards.add(new Card(Rank.ACE, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-        assertEquals(false,
-                game.isThreeOfAKind(p));
-
+        assertEquals(false, game.isThreeOfAKind(p.getSortedCards()));
     }
     @Test
     void testNotHasPair(){
@@ -306,10 +282,7 @@ public class GameTest {
         cards.add(new Card(Rank.FIVE, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-
-        assertEquals(false, game.hasPair(p));
-
+        assertEquals(false, game.hasPair(p.getSortedCards()));
     }
 
     @Test
@@ -321,9 +294,7 @@ public class GameTest {
         cards.add(new Card(Rank.FIVE, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        p.getSortedCards();
-
-        assertEquals(false, game.hasPair(p));
+        assertEquals(false, game.hasPair(p.getSortedCards()));
 
     }
 
