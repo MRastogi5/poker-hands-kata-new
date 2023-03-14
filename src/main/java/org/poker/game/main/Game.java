@@ -52,8 +52,9 @@ public class Game {
         //Sort cards - Done
         //get highest card in player cards - Done
         //check sorted cards for Straight flush, Four of a kind, Full House, Flush, Straight, Three of a Kind,
-        //Two Pairs, Pair and set their flags
-        List<Card> sortedcards = firstPlayer.getSortedCards();
+        //Two Pairs, Pair and set their flags and //setHighCard();
+
+        List<Card> sortedCards = firstPlayer.getSortedCards();
         checkCombination(firstPlayer);
 
 
@@ -66,6 +67,7 @@ public class Game {
         Map<String, Boolean> combinations = new HashMap<>();
 
         //isStraightflush
+        combinations.put("isStraightflush", isStraightflush(firstPlayer));
         combinations.put("isFourOfAKind", isFourOfAKind(firstPlayer));
         combinations.put("isFullHouse", isFullHouse(firstPlayer));
         combinations.put("isFlush",isFlush(firstPlayer));//isFlush
@@ -76,8 +78,16 @@ public class Game {
         //hasHignCard(black,white);
     }
 
+
+
+    public Boolean isStraightflush(Player player) {
+        //5 cards of the same suit with consecutive values : Q♥ J♥ 10♥ 9♥ 8♥
+        if(isStraight(player) && isFlush(player))
+            return true;
+        return false;
+    }
     public Boolean isFourOfAKind(Player player) {
-        //4 cards with the same value
+        //4 cards with the same value : 9♣ 9♠ 9♦ 9♥ J♥
         List<Card> cards = player.getCards();
         int i = 0;
         if(cards.get(i).getRank()==cards.get(i+1).getRank()
@@ -92,10 +102,8 @@ public class Game {
         }
         return false;
     }
-
-
     public Boolean isFullHouse(Player player) {
-        //3 cards of the same value, with the remaining 2 cards forming a pair.
+        //3 cards of the same value, with the remaining 2 cards forming a pair.  3♣ 3♠ 3♦ 6♣ 6♥  or 8♠ 8♦ 8♥ 7♦ 7♣
         List<Card> cards = player.getCards();
         int i=0;
             if((cards.get(i).getRank()==cards.get(i+1).getRank()
@@ -111,7 +119,6 @@ public class Game {
 
         return false;
     }
-
     public Boolean isFlush(Player player) {
         //Hand contains 5 cards of the same suit
         int count = 0;

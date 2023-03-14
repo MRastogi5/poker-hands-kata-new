@@ -73,6 +73,30 @@ public class GameTest {
 
 
 
+    @Test
+    void testIsStraightFlush(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.JACK, Suit.Heart));
+        cards.add(new Card(Rank.QUEEN, Suit.Heart));
+        cards.add(new Card(Rank.KING, Suit.Heart));
+        cards.add(new Card(Rank.ACE, Suit.Heart));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(true,  game.isStraightflush(p));
+    }
+    @Test
+    void testIsNotStraightFlush(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.JACK, Suit.Heart));
+        cards.add(new Card(Rank.QUEEN, Suit.Heart));
+        cards.add(new Card(Rank.KING, Suit.Heart));
+        cards.add(new Card(Rank.ACE, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(false,  game.isStraightflush(p));
+    }
 
     @Test
     void testIsFourOfAKind(){
@@ -128,7 +152,6 @@ public class GameTest {
         Player p = new Player(cards);
         p.getSortedCards();
         assertEquals(true,  game.isFullHouse(p));
-
     }
     @Test
     void testIsFullHouse2(){
