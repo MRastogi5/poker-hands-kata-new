@@ -259,7 +259,7 @@ public class GameTest {
         cards.add(new Card(Rank.TWO, Suit.Club));
         cards.add(new Card(Rank.FIVE, Suit.Diamond));
         Player p = new Player(cards);
-        assertEquals(true, game.hasTwoPairs(p.getSortedCards()));
+        assertEquals(true, game.hasTwoPairs(p));
     }
 
     @Test
@@ -282,7 +282,7 @@ public class GameTest {
         cards.add(new Card(Rank.FIVE, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        assertEquals(false, game.hasPair(p.getSortedCards()));
+        assertEquals(false, game.hasPair(p));
     }
 
     @Test
@@ -294,7 +294,7 @@ public class GameTest {
         cards.add(new Card(Rank.FIVE, Suit.Club));
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
-        assertEquals(false, game.hasPair(p.getSortedCards()));
+        assertEquals(false, game.hasPair(p));
 
     }
 

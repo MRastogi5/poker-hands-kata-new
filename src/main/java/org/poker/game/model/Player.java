@@ -18,11 +18,16 @@ public class Player {
         return highestCard.rank.getCardIntValue();
     }
 
+    public void setHighestCard(Card highestCard) {
+        this.highestCard = highestCard;
+    }
+
     private Card highestCard;
 
     public Player(List<Card> cards) {
         this.cards = cards;
-        //System.out.println("original : "+ cards);
+        getSortedCards();
+        highestCard = cards.get(cards.size()-1);
     }
 
     public List<Card> getCards() {
@@ -30,9 +35,6 @@ public class Player {
     }
     public List<Card> getSortedCards() {
         Collections.sort(this.cards);
-        highestCard = cards.get(cards.size()-1);
-        //System.out.println("sorted : "+cards);
-        //System.out.println("highestCard : "+highestCard);
         return cards;
     }
 }
