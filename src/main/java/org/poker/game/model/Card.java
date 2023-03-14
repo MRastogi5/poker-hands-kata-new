@@ -22,12 +22,13 @@ public class Card implements Comparable<Card> {
     public int compareTo(Card o) {
         Integer rank = this.rank.getCardIntValue();
         Integer oRank = o.rank.getCardIntValue();
-        return rank.compareTo(oRank);
+        //Sort from lowest to highest
+        return oRank.compareTo(rank);
     }
 
     @Override
     public String toString(){
-        return rank.toString()+suit.toString();
+        return rank.getCardValue()+suit.getSuitValue();
     }
 
 }

@@ -7,6 +7,10 @@ public enum Suit {
     Diamond("D"),
     Heart("D");
 
+    public String getSuitValue() {
+        return suitValue;
+    }
+
     private final String suitValue;
 
     Suit(String suitValue) {

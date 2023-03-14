@@ -18,8 +18,8 @@ public class Game {
            System.out.println("Hello world!");
 
         List<Card> cards2 = new ArrayList<>();
-        cards2.add(new Card(Rank.FIVE, Suit.Club));
-        cards2.add(new Card(Rank.TWO, Suit.Spade));
+        cards2.add(new Card(Rank.ACE, Suit.Club));
+        cards2.add(new Card(Rank.KING, Suit.Spade));
         cards2.add(new Card(Rank.QUEEN, Suit.Heart));
         cards2.add(new Card(Rank.TEN, Suit.Club));
         cards2.add(new Card(Rank.THREE, Suit.Diamond));
@@ -53,6 +53,9 @@ public class Game {
         //get highest card in player cards
         //check sorted cards for Straight flush, Four of a kind, Full House, Flush, Straight, Three of a Kind,
         //Two Pairs, Pair and set their flags
+        firstPlayer.getSortedCards();
+        
+
 
 
 
