@@ -13,9 +13,9 @@ public class Player {
 
     public Player(List<Card> cards) {
         this.cards = cards;
-        System.out.println(cards);
-        Collections.sort(this.cards, Collections.reverseOrder());
-        System.out.println(cards);
+        System.out.println("original : "+ cards);
+
+
     }
 
     public List<Card> getCards() {
@@ -23,7 +23,9 @@ public class Player {
     }
     public List<Card> getSortedCards() {
         Collections.sort(this.cards);
-
+        highestCard = cards.get(cards.size()-1);
+        System.out.println("sorted : "+cards);
+        System.out.println("highestCard : "+highestCard);
         return cards;
     }
 }

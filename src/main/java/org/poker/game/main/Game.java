@@ -5,9 +5,7 @@ import org.poker.game.model.Player;
 import org.poker.game.model.Rank;
 import org.poker.game.model.Suit;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class Game {
 
@@ -18,14 +16,16 @@ public class Game {
            System.out.println("Hello world!");
 
         List<Card> cards2 = new ArrayList<>();
+        cards2.add(new Card(Rank.QUEEN, Suit.Heart));
         cards2.add(new Card(Rank.ACE, Suit.Club));
         cards2.add(new Card(Rank.KING, Suit.Spade));
-        cards2.add(new Card(Rank.QUEEN, Suit.Heart));
-        cards2.add(new Card(Rank.TEN, Suit.Club));
         cards2.add(new Card(Rank.THREE, Suit.Diamond));
-        Player secondPlayer = new Player(cards2);
+        cards2.add(new Card(Rank.TEN, Suit.Club));
 
-        //System.out.println();
+        Player secondPlayer = new Player(cards2);
+        secondPlayer.getSortedCards();
+        /*List<Card> sortedCards = secondPlayer.getSortedCards();
+        System.out.println("sortedCards : "+ sortedCards);*/
     }
 
     public void verifyPokerHands(Player firstPlayer, Player secondPlayer) {
@@ -49,16 +49,59 @@ public class Game {
 
 
     public String getWinningPokerHands(Player firstPlayer, Player secondPlayer) {
-        //Sort cards
-        //get highest card in player cards
+        //Sort cards - Done
+        //get highest card in player cards - Done
         //check sorted cards for Straight flush, Four of a kind, Full House, Flush, Straight, Three of a Kind,
         //Two Pairs, Pair and set their flags
-        firstPlayer.getSortedCards();
-        
+        List<Card> sortedcards = firstPlayer.getSortedCards();
+        checkCombination(firstPlayer);
 
 
 
 
         return "";
     }
+
+    private void checkCombination(Player firstPlayer) {
+        Map<String, Boolean> combinations = new HashMap<>();
+        //straightFlush
+        //isStraightflush
+        //isFourOfAKind
+        //isFullHouse
+        //isFlush
+        //isStraight
+        //isThreeOfAKind(black);
+        combinations.put("hasTwoPair",hasTwoPairs(firstPlayer) );
+        combinations.put("hasPair",hasPair(firstPlayer) );
+        //hasHignCard(black,white);
+    }
+    private boolean  hasTwoPairs(Player firstPlayer) {
+        int count = isPair(firstPlayer);
+        if(count == 2)
+            return true;
+        return false;
+    }
+    private boolean hasPair(Player firstPlayer) {
+        int count = isPair(firstPlayer);
+        if(count == 1)
+            return true;
+        return false;
+    }
+
+    private int isPair(Player player) {
+        List<Card> cards = player.getCards();
+        int pair_count = 0;
+        System.out.println("isPair : " + cards);
+        for(int i = 0; i<cards.size();i++){
+            if(cards.get(i).getRank().equals(cards.get(i).getRank())){
+                pair_count++ ;
+            }
+        }
+        return pair_count;
+    }
+
+
+
+
+
 }

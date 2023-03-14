@@ -23,7 +23,7 @@ public class Card implements Comparable<Card> {
         Integer rank = this.rank.getCardIntValue();
         Integer oRank = o.rank.getCardIntValue();
         //Sort from lowest to highest
-        return oRank.compareTo(rank);
+        return rank.compareTo(oRank);
     }
 
     @Override
