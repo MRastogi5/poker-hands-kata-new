@@ -15,21 +15,6 @@ public class GameTest {
     Game game = new Game();
 
     @Test
-    void testEmptyPokerHands(){
-
-        List<Card> cards = new ArrayList<>();
-        cards.add(new Card(Rank.valueOf(""), Suit.valueOf("")));
-        cards.add(new Card(Rank.valueOf(""), Suit.valueOf("")));
-        cards.add(new Card(Rank.valueOf(""), Suit.valueOf("")));
-        cards.add(new Card(Rank.valueOf(""), Suit.valueOf("")));
-        cards.add(new Card(Rank.valueOf(""), Suit.valueOf("")));
-        Player firstPlayer = new Player(cards);
-        Player secondPlayer = new Player(cards);
-
-
-        assertEquals("Invalid",   game.verifyPokerHands(firstPlayer, secondPlayer));
-    }
-    @Test
     void testSimilarPokerHands(){
         List<Card> cards1 = new ArrayList<>();
         cards1.add(new Card(Rank.FIVE, Suit.Spade));
@@ -48,11 +33,12 @@ public class GameTest {
         Player secondPlayer = new Player(cards2);
 
         assertEquals("Tie",
-                game.verifyPokerHands(firstPlayer, secondPlayer));
+                game.getWinningPokerHands(firstPlayer, secondPlayer));
     }
 
     @Test
-    void testSamePokerHands(){        List<Card> cards = new ArrayList<>();
+    void testSamePokerHands(){
+        List<Card> cards = new ArrayList<>();
         cards.add(new Card(Rank.TWO, Suit.Heart));
         cards.add(new Card(Rank.THREE, Suit.Diamond));
         cards.add(new Card(Rank.FIVE, Suit.Spade));
@@ -63,7 +49,7 @@ public class GameTest {
         Player secondPlayer = new Player(cards);
 
         assertEquals("Invalid",
-                game.verifyPokerHands(firstPlayer, secondPlayer));
+                game.getWinningPokerHands(firstPlayer, secondPlayer));
 
     }
 

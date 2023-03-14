@@ -1,6 +1,6 @@
 package org.poker.game.model;
 
-public class Card {
+public class Card implements Comparable<Card> {
     //Each card have Rank, Suit
     Rank rank;
     Suit suit;
@@ -16,6 +16,18 @@ public class Card {
     public Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
+    }
+
+    @Override
+    public int compareTo(Card o) {
+        Integer rank = this.rank.getCardIntValue();
+        Integer oRank = o.rank.getCardIntValue();
+        return rank.compareTo(oRank);
+    }
+
+    @Override
+    public String toString(){
+        return rank.toString()+suit.toString();
     }
 
 }
