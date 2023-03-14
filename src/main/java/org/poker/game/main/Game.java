@@ -67,7 +67,7 @@ public class Game {
         //straightFlush
         //isStraightflush
         //isFourOfAKind
-        //isFullHouse
+        combinations.put("isFullHouse", isFullHouse(firstPlayer));
         combinations.put("isFlush",isFlush(firstPlayer));//isFlush
         combinations.put("isStraight",isStraight(firstPlayer));
         combinations.put("hasThreeOfAKind",isThreeOfAKind(firstPlayer));
@@ -76,24 +76,47 @@ public class Game {
         //hasHignCard(black,white);
     }
 
-    public Boolean isFlush(Player firstPlayer) {
-        //Hand contains 5 cards of the same suit
+    public Boolean isFullHouse(Player player) {
+        //3 cards of the same value, with the remaining 2 cards forming a pair.
+        List<Card> cards = player.getCards();
+    int i=1;
+            if((cards.get(i-1).getRank()==cards.get(i).getRank()
+                    && cards.get(i).getRank()==cards.get(i+1).getRank())
+                    && cards.get(i+2).getRank().equals(cards.get(i+3).getRank())){
+                return true;
+            }
+            else if((cards.get(i-1).getRank().equals(cards.get(i).getRank()))&&(cards.get(i+1).getRank()==cards.get(i+2).getRank()
+                    && cards.get(i+2).getRank()==cards.get(i+3).getRank())){
+                return true;
+            }
+
 
         return false;
     }
 
+    public Boolean isFlush(Player player) {
+        //Hand contains 5 cards of the same suit
+        int count = 0;
+        List<Card> cards = player.getCards();
+        for(int i = 1; i<cards.size();i++){
+            if(cards.get(i).getSuit().equals(cards.get(i-1).getSuit())){
+                count++;
+            }
+        }
+        return count==4;
+    }
     public Boolean isStraight(Player player) {
-        boolean straightFlag = false;
+        //Hand contains 5 cards with consecutive values.
+        int count = 0;
         List<Card> cards = player.getCards();
        // cards.get(4).getRank().getCardIntValue()
         for(int i = 1; i<cards.size();i++){
             if(cards.get(i).getRank().getCardIntValue()-cards.get(i-1).getRank().getCardIntValue() == 1){
-                straightFlag = true;
+                count++;
             }
         }
-        return straightFlag;
+        return count==4;
     }
-
     public boolean isThreeOfAKind(Player player) {
         //Three of the cards in the hand have the same value
         List<Card> cards = player.getCards();
@@ -105,7 +128,6 @@ public class Game {
         }
         return false;
     }
-
     public boolean  hasTwoPairs(Player firstPlayer) {
         int count = isPair(firstPlayer);
         if(count == 2)
@@ -118,7 +140,6 @@ public class Game {
             return true;
         return false;
     }
-
     private int isPair(Player player) {
         List<Card> cards = player.getCards();
         int pair_count = 0;

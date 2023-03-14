@@ -69,6 +69,82 @@ public class GameTest {
                 game.getWinningPokerHands(firstPlayer, secondPlayer));
 
     }*/
+
+
+
+
+
+
+    @Test
+    void testIsFullHouse(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.TEN, Suit.Diamond));
+        cards.add(new Card(Rank.TEN, Suit.Spade));
+        cards.add(new Card(Rank.KING, Suit.Club));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(true,
+                game.isFullHouse(p));
+
+    }
+    @Test
+    void testIsFullHouse2(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.TEN, Suit.Diamond));
+        cards.add(new Card(Rank.KING, Suit.Spade));
+        cards.add(new Card(Rank.KING, Suit.Club));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(true,
+                game.isFullHouse(p));
+
+    }
+    @Test
+    void testIsNotFullHouse(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TEN, Suit.Heart));
+        cards.add(new Card(Rank.TEN, Suit.Diamond));
+        cards.add(new Card(Rank.KING, Suit.Spade));
+        cards.add(new Card(Rank.QUEEN, Suit.Club));
+        cards.add(new Card(Rank.KING, Suit.Diamond));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(false,
+                game.isFullHouse(p));
+
+    }
+
+    @Test
+    void testIsFlush(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TWO, Suit.Heart));
+        cards.add(new Card(Rank.THREE, Suit.Heart));
+        cards.add(new Card(Rank.FIVE, Suit.Heart));
+        cards.add(new Card(Rank.SIX, Suit.Heart));
+        cards.add(new Card(Rank.FOUR, Suit.Heart));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(true, game.isFlush(p));
+
+    }
+
+    @Test
+    void testIsNotFlush(){
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card(Rank.TWO, Suit.Heart));
+        cards.add(new Card(Rank.THREE, Suit.Heart));
+        cards.add(new Card(Rank.FIVE, Suit.Heart));
+        cards.add(new Card(Rank.SIX, Suit.Heart));
+        cards.add(new Card(Rank.FOUR, Suit.Club));
+        Player p = new Player(cards);
+        p.getSortedCards();
+        assertEquals(false,game.isFlush(p));
+    }
+
     @Test
     void testIsStraight(){
         List<Card> cards = new ArrayList<>();
@@ -88,13 +164,13 @@ public class GameTest {
     void testIsNotStraight(){
         List<Card> cards = new ArrayList<>();
         cards.add(new Card(Rank.TWO, Suit.Heart));
-        cards.add(new Card(Rank.THREE, Suit.Diamond));
-        cards.add(new Card(Rank.FIVE, Suit.Spade));
+        cards.add(new Card(Rank.TWO, Suit.Diamond));
+        cards.add(new Card(Rank.SIX, Suit.Spade));
         cards.add(new Card(Rank.SEVEN, Suit.Club));
         cards.add(new Card(Rank.FOUR, Suit.Diamond));
         Player p = new Player(cards);
         p.getSortedCards();
-        assertEquals(true,
+        assertEquals(false,
                 game.isStraight(p));
 
     }

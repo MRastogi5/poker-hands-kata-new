@@ -5,7 +5,7 @@ public enum Suit {
     Club("C"),
     Spade("S"),
     Diamond("D"),
-    Heart("D");
+    Heart("H");
 
     public String getSuitValue() {
         return suitValue;
