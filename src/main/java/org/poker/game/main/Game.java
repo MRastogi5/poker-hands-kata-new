@@ -69,12 +69,25 @@ public class Game {
         //isFourOfAKind
         //isFullHouse
         //isFlush
-        //isStraight
-        //isThreeOfAKind(black);
+        isStraight
+        combinations.put("hasThreeOfAKind",isThreeOfAKind(firstPlayer));
         combinations.put("hasTwoPair",hasTwoPairs(firstPlayer) );
         combinations.put("hasPair",hasPair(firstPlayer) );
         //hasHignCard(black,white);
     }
+
+    private boolean isThreeOfAKind(Player player) {
+        //Three of the cards in the hand have the same value
+        List<Card> cards = player.getCards();
+        for(int i = 0; i<cards.size();i++){
+            if(cards.get(i).getRank()==cards.get(i+1).getRank()
+                    && cards.get(i+1).getRank()==cards.get(i+2).getRank()){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private boolean  hasTwoPairs(Player firstPlayer) {
         int count = isPair(firstPlayer);
         if(count == 2)
