@@ -127,8 +127,7 @@ public class GameTest {
         cards.add(new Card(Rank.KING, Suit.Diamond));
         Player p = new Player(cards);
         p.getSortedCards();
-        assertEquals(true,
-                game.isFullHouse(p));
+        assertEquals(true,  game.isFullHouse(p));
 
     }
     @Test

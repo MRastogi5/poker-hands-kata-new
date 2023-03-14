@@ -66,7 +66,6 @@ public class Game {
         Map<String, Boolean> combinations = new HashMap<>();
 
         //isStraightflush
-
         combinations.put("isFourOfAKind", isFourOfAKind(firstPlayer));
         combinations.put("isFullHouse", isFullHouse(firstPlayer));
         combinations.put("isFlush",isFlush(firstPlayer));//isFlush
