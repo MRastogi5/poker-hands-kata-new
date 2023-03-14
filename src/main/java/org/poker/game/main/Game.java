@@ -62,39 +62,57 @@ public class Game {
         return "";
     }
 
-    private void checkCombination(Player firstPlayer) {
+    public void checkCombination(Player firstPlayer) {
         Map<String, Boolean> combinations = new HashMap<>();
         //straightFlush
         //isStraightflush
         //isFourOfAKind
         //isFullHouse
-        //isFlush
-        isStraight
+        combinations.put("isFlush",isFlush(firstPlayer));//isFlush
+        combinations.put("isStraight",isStraight(firstPlayer));
         combinations.put("hasThreeOfAKind",isThreeOfAKind(firstPlayer));
         combinations.put("hasTwoPair",hasTwoPairs(firstPlayer) );
         combinations.put("hasPair",hasPair(firstPlayer) );
         //hasHignCard(black,white);
     }
 
-    private boolean isThreeOfAKind(Player player) {
+    public Boolean isFlush(Player firstPlayer) {
+        //Hand contains 5 cards of the same suit
+
+        return false;
+    }
+
+    public Boolean isStraight(Player player) {
+        boolean straightFlag = false;
+        List<Card> cards = player.getCards();
+       // cards.get(4).getRank().getCardIntValue()
+        for(int i = 1; i<cards.size();i++){
+            if(cards.get(i).getRank().getCardIntValue()-cards.get(i-1).getRank().getCardIntValue() == 1){
+                straightFlag = true;
+            }
+        }
+        return straightFlag;
+    }
+
+    public boolean isThreeOfAKind(Player player) {
         //Three of the cards in the hand have the same value
         List<Card> cards = player.getCards();
-        for(int i = 0; i<cards.size();i++){
-            if(cards.get(i).getRank()==cards.get(i+1).getRank()
-                    && cards.get(i+1).getRank()==cards.get(i+2).getRank()){
+        for(int i = 1; i<cards.size();i++){
+            if(cards.get(i-1).getRank()==cards.get(i).getRank()
+                    && cards.get(i).getRank()==cards.get(i+1).getRank()){
                 return true;
             }
         }
         return false;
     }
 
-    private boolean  hasTwoPairs(Player firstPlayer) {
+    public boolean  hasTwoPairs(Player firstPlayer) {
         int count = isPair(firstPlayer);
         if(count == 2)
             return true;
         return false;
     }
-    private boolean hasPair(Player firstPlayer) {
+    public boolean hasPair(Player firstPlayer) {
         int count = isPair(firstPlayer);
         if(count == 1)
             return true;
@@ -105,11 +123,12 @@ public class Game {
         List<Card> cards = player.getCards();
         int pair_count = 0;
         System.out.println("isPair : " + cards);
-        for(int i = 0; i<cards.size();i++){
-            if(cards.get(i).getRank().equals(cards.get(i).getRank())){
+        for(int i = 1; i<cards.size();i++){
+            if(cards.get(i-1).getRank().equals(cards.get(i).getRank())){
                 pair_count++ ;
             }
         }
+        System.out.println("pair_count " + pair_count);
         return pair_count;
     }
 
