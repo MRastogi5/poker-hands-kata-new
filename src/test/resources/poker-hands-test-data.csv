@@ -1,4 +1,5 @@
 firstPlayer,secondPlayer,result
+"2H 4S 4C 2D 4H","2H 4S 4C 2D 4H","Both player can not have same cards"
 "2H 4S 4C 2D 4H","2S 8S AS QS 3S","Black wins - with Full House"
 "2H 3D 5S 9C KD","2C 3H 4S 8C AH","White wins - with High Card"
 "2H 2D 5S 5C KD","2C 2S 4S 4C KH","Black wins - with Two Pairs"
@@ -8,9 +9,10 @@ firstPlayer,secondPlayer,result
 "2H 3H 4H 5H 6H","7C 7D 7S 8C 8D","Black wins - with Straight Flush"
 "2H 3H 4H 5H 6H","AH KH QH JH 10H","White wins - with Straight Flush"
 "2H 2D 2S 9C 9D","3C 3D 3S JC JD","White wins - with Full House"
-"AH KD QS JC 10H","AD KD QD JC 10D","Tie"
+"AH KD QS JC 10H","AD KD QD JC 10D","Both player can not have same cards"
 "2H 2D 5S 9C KD","2C 3H 4S 8C KH","Black wins - with Pair"
-"AH KD QS JC 10H","AD KD QD JC 10D","Tie"
+"AH KD QS JC 10H","AD KH QD JS 10D","Tie"
+"AH KS QS JC 10H","AD KD QD JD 10D","White wins - with Straight Flush"
 "2H 3D 5S 9C KD","2C 3H 4S 8C KH","Black wins - with High Card"
 "AH AC AS AD 2H","KH KC KS KD 2C","Black wins - with Four of a Kind"
 "AH 2D 3S 4C 5H","2C 3H 4S 5C 7H","Black wins - with High Card"

@@ -13,29 +13,19 @@ public class Game {
     // firstPlayer is Black
     // secondPlayer is White
     public static void main(String[] args) {
-        
+
     }
 
-    public void verifyPokerHands(Player firstPlayer, Player secondPlayer) {
-        List<Card> player1Cards = firstPlayer.getCards();
-        List<Card> player2Cards = secondPlayer.getCards();
-        verifyCards(player1Cards);
-        verifyCards(player2Cards);
-        
-        //Check for same cards
-        verifySameCards(player1Cards, player2Cards );
-        
-        //check for similar cards
-        verifySimilarCards(player1Cards, player2Cards );
+    public void verifyPokerHands(Player firstPlayer, Player secondPlayer) throws IllegalArgumentException {
+
+        verifyCardsForInvalidValues(firstPlayer.getCards());
+        verifyCardsForInvalidValues(secondPlayer.getCards());
+        //Check for same set of cards
+        verifyCardsForSameSet(firstPlayer, secondPlayer);
+
     }
 
-    private void verifySimilarCards(List<Card> player1Cards, List<Card> player2Cards) {
-    }
-
-    private void verifySameCards(List<Card> player1Cards, List<Card> player2Cards) {
-    }
-
-    private void verifyCards(List<Card> cards) {
+    private void verifyCardsForInvalidValues(List<Card> cards) {
         for (Card card : cards) {
             if (!Arrays.asList(Rank.values()).contains(card.getRank())) {
                 throw new IllegalArgumentException("Invalid Values");
@@ -46,11 +36,16 @@ public class Game {
         }
     }
 
-    //Sort cards - Done
-    //get highest card in player cards - Done
     //check sorted cards for Straight flush, Four of a kind, Full House, Flush, Straight, Three of a Kind,
-    //Two Pairs, Pair and set their flags and //setHighCard();
+    //Two Pairs, Pair and set their flags and setHighCard();
     public String getWinningPokerHands(Player firstPlayer, Player secondPlayer) {
+        //Verify cards input before processing
+        try {
+            verifyPokerHands(firstPlayer, secondPlayer);
+        } catch (IllegalArgumentException ex){
+            return ex.getMessage();
+        }
+
         Map<String, Boolean> firstPlayerCombo = checkCombination(firstPlayer);
         Map<String, Boolean> secondPlayerCombo = checkCombination(secondPlayer);
         for (String key : firstPlayerCombo.keySet()) {
@@ -73,15 +68,10 @@ public class Game {
     private String getWinningHandByHighCard(Player firstPlayer, Player secondPlayer) {
 
         for (int i = (firstPlayer.getSortedCards().size() - 1); i > 0; i--) {
-            System.out.println("i " + i);
-            System.out.println("firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i))==0 " + (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) == 0));
-            System.out.println("(firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i))>0) " + (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) > 0));
-            System.out.println("i " + i);
             if (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) == 0) {
-                System.out.println("continue ");
                 continue;
             } else if (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) > 0) {
-                return "Black wins - with High Card";//+ firstPlayer.getHighestCard();
+                return "Black wins - with High Card";
             } else {
                 return "White wins - with High Card";
             }
@@ -92,8 +82,6 @@ public class Game {
     public Map<String, Boolean> checkCombination(Player player) {
         List<Card> sortedCards = player.getSortedCards();
         Map<String, Boolean> combinations = getCombinationsObj();
-
-        //System.out.println("(isStraight(sortedCards) : " + isStraight(sortedCards));
         if (isStraightflush(sortedCards)) {
             combinations.put("Straight Flush", true);
             player.setHighestCard(sortedCards.get(sortedCards.size() - 1)); // Last card
@@ -233,6 +221,18 @@ public class Game {
             }
         }
         return pair_count;
+    }
+
+    private void verifyCardsForSameSet(Player firstPlayer, Player secondPlayer){
+        List<Card> player1cards = firstPlayer.getSortedCards();
+        List<Card> player2cards = secondPlayer.getSortedCards();
+
+        for (int i =0; i < player1cards.size(); i++) {
+            if ((player1cards.get(i).getSuit().ordinal()== player2cards.get(i).getSuit().ordinal())
+                    && (player1cards.get(i).getRank().ordinal() == player2cards.get(i).getRank().ordinal())) {
+                throw new IllegalArgumentException("Both player can not have same cards");
+            }
+        }
     }
 
 
