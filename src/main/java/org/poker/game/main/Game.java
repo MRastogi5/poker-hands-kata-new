@@ -4,19 +4,16 @@ import org.poker.game.model.Card;
 import org.poker.game.model.Player;
 import org.poker.game.model.Rank;
 import org.poker.game.model.Suit;
-
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class Game {
 
     //Poker game will have two player- Black, White
-    // Assumption :
-        // firstPlayer is Black
-        // secondPlayer is White
+    // Assumptions :
+    // firstPlayer is Black
+    // secondPlayer is White
     public static void main(String[] args) {
-
-        Game game = new Game();
+        
     }
 
     public void verifyPokerHands(Player firstPlayer, Player secondPlayer) {
@@ -24,6 +21,18 @@ public class Game {
         List<Card> player2Cards = secondPlayer.getCards();
         verifyCards(player1Cards);
         verifyCards(player2Cards);
+        
+        //Check for same cards
+        verifySameCards(player1Cards, player2Cards );
+        
+        //check for similar cards
+        verifySimilarCards(player1Cards, player2Cards );
+    }
+
+    private void verifySimilarCards(List<Card> player1Cards, List<Card> player2Cards) {
+    }
+
+    private void verifySameCards(List<Card> player1Cards, List<Card> player2Cards) {
     }
 
     private void verifyCards(List<Card> cards) {
@@ -37,73 +46,94 @@ public class Game {
         }
     }
 
+    //Sort cards - Done
+    //get highest card in player cards - Done
+    //check sorted cards for Straight flush, Four of a kind, Full House, Flush, Straight, Three of a Kind,
+    //Two Pairs, Pair and set their flags and //setHighCard();
     public String getWinningPokerHands(Player firstPlayer, Player secondPlayer) {
-        //Sort cards - Done
-        //get highest card in player cards - Done
-        //check sorted cards for Straight flush, Four of a kind, Full House, Flush, Straight, Three of a Kind,
-        //Two Pairs, Pair and set their flags and //setHighCard();
-
         Map<String, Boolean> firstPlayerCombo = checkCombination(firstPlayer);
         Map<String, Boolean> secondPlayerCombo = checkCombination(secondPlayer);
-
         for (String key : firstPlayerCombo.keySet()) {
             if (firstPlayerCombo.get(key) != secondPlayerCombo.get(key)) {
-                String result = firstPlayerCombo.get(key) ? "Black wins - with "+ key + " : "+ firstPlayer.getHighestCard().getRank()
-                        : "White wins - with "+ key + " : "+ firstPlayer.getHighestCard().getRank();
-                return result;
+                return firstPlayerCombo.get(key) ? ("Black wins - with " + key) : ("White wins - with " + key);
+            }
+            else if (true == firstPlayerCombo.get(key) && firstPlayerCombo.get(key) == secondPlayerCombo.get(key)) {
+                if(firstPlayer.getHighestCard().compareTo(secondPlayer.getHighestCard()) == 1){
+                    return "Black wins - with " + key;
+                }
+                else if(firstPlayer.getHighestCard().compareTo(secondPlayer.getHighestCard()) == -1){
+                    return "White wins - with " + key;
+                }
+                return "Tie";
             }
         }
-        return getWinningHandbyHighCard(firstPlayer, secondPlayer);
-
+        return getWinningHandByHighCard(firstPlayer, secondPlayer);
     }
 
-    private static String getWinningHandbyHighCard(Player firstPlayer, Player secondPlayer) {
-        if (firstPlayer.getHighestCardRankValue() > secondPlayer.getHighestCardRankValue()) {
-            return "Black wins - with High Card : " + firstPlayer.getHighestCard();
-        } else if (firstPlayer.getHighestCardRankValue() < secondPlayer.getHighestCardRankValue()) {
-            return "White wins - with High Card : " + secondPlayer.getHighestCard();
-        } else {
-            return "Tie";
+    private String getWinningHandByHighCard(Player firstPlayer, Player secondPlayer) {
+
+        for (int i = (firstPlayer.getSortedCards().size() - 1); i > 0; i--) {
+            System.out.println("i " + i);
+            System.out.println("firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i))==0 " + (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) == 0));
+            System.out.println("(firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i))>0) " + (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) > 0));
+            System.out.println("i " + i);
+            if (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) == 0) {
+                System.out.println("continue ");
+                continue;
+            } else if (firstPlayer.getSortedCards().get(i).compareTo(secondPlayer.getSortedCards().get(i)) > 0) {
+                return "Black wins - with High Card";//+ firstPlayer.getHighestCard();
+            } else {
+                return "White wins - with High Card";
+            }
         }
+        return "Tie";
     }
 
     public Map<String, Boolean> checkCombination(Player player) {
         List<Card> sortedCards = player.getSortedCards();
-        Map<String, Boolean> combinations = new HashMap<>();
+        Map<String, Boolean> combinations = getCombinationsObj();
 
-        if(isStraightflush(sortedCards)){
-            combinations.put("Straight flush", isStraightflush(sortedCards));
-            player.setHighestCard(sortedCards.get(sortedCards.size()-1)); // Last card
-        }
-        else if (isFourOfAKind(sortedCards)){
-            combinations.put("Four Of A Kind", isFourOfAKind(sortedCards));
+        //System.out.println("(isStraight(sortedCards) : " + isStraight(sortedCards));
+        if (isStraightflush(sortedCards)) {
+            combinations.put("Straight Flush", true);
+            player.setHighestCard(sortedCards.get(sortedCards.size() - 1)); // Last card
+        } else if (isFourOfAKind(sortedCards)) {
+            combinations.put("Four of a Kind", true);
             player.setHighestCard(sortedCards.get(1)); // Second card
-        }
-        else if (isFullHouse(sortedCards)){
-            combinations.put("Full House", isFullHouse(sortedCards));
+        } else if (isFullHouse(sortedCards)) {
+            combinations.put("Full House", true);
+            player.setHighestCard(sortedCards.get(sortedCards.size() - 1));//Middle card
+        } else if (isFlush(sortedCards)) {
+            combinations.put("Flush", true);
+            player.setHighestCard(sortedCards.get(sortedCards.size() - 1)); // Last card
+        } else if (isStraight(sortedCards)) {
+            combinations.put("Straight", true);
+            player.setHighestCard(sortedCards.get(sortedCards.size() - 1)); // Last card
+        } else if (isThreeOfAKind(sortedCards)) {
+            combinations.put("Three Of a Kind", true);
             player.setHighestCard(sortedCards.get(2));//Middle card
+        } else if (hasTwoPairs(player)) {
+            combinations.put("Two Pairs", true);
+        } else if (hasPair(player)) {
+            combinations.put("Pair", true);
         }
-        else if (isFlush(sortedCards)){
-            combinations.put("Flush", isFlush(sortedCards));
-            player.setHighestCard(sortedCards.get(sortedCards.size()-1)); // Last card
-        }
-        else if (isStraight(sortedCards)){
-            combinations.put("Straight", isStraight(sortedCards));
-            player.setHighestCard(sortedCards.get(sortedCards.size()-1)); // Last card
-        }
-        else if (isThreeOfAKind(sortedCards)){
-            combinations.put("Three Of A Kind", isThreeOfAKind(sortedCards));
-            player.setHighestCard(sortedCards.get(2));//Middle card
-        }
-        else if (hasTwoPairs(player)){
-            combinations.put("Two Pairs", hasTwoPairs(player));
-        }
-        else if(hasPair(player)){
-            combinations.put("Pair", hasPair(player));
-        }
+
         return combinations;
     }
 
+    private Map<String, Boolean> getCombinationsObj() {
+        Map<String, Boolean> map = new LinkedHashMap <String, Boolean>();
+        map.put("Straight Flush", false);
+        map.put("Four of a Kind", false);
+        map.put("Full House", false);
+        map.put("Flush", false);
+        map.put("Straight", false);
+        map.put("Three Of a Kind", false);
+        map.put("Two Pairs", false);
+        map.put("Pair", false);
+
+        return map;
+    }
 
     public Boolean isStraightflush(List<Card> cards) {
         //5 cards of the same suit with consecutive values : Q♥ J♥ 10♥ 9♥ 8♥
@@ -139,8 +169,6 @@ public class Game {
                 && cards.get(i + 3).getRank() == cards.get(i + 4).getRank())) {
             return true;
         }
-
-
         return false;
     }
 
@@ -158,12 +186,12 @@ public class Game {
     public Boolean isStraight(List<Card> cards) {
         //Hand contains 5 cards with consecutive values.
         int count = 0;
-        for (int i = 1; i < cards.size(); i++) {
+        for (int i = 1; i < cards.size(); i++) {//[2H, 2D, 2S, 4C, 5H]
             if (cards.get(i).getRank().getCardIntValue() - cards.get(i - 1).getRank().getCardIntValue() == 1) {
                 count++;
             }
         }
-        return count == 4;
+        return (count == 4);
     }
 
     public boolean isThreeOfAKind(List<Card> cards) {
@@ -199,7 +227,7 @@ public class Game {
             if (cards.get(i - 1).getRank().equals(cards.get(i).getRank())) {
                 pair_count++;
                 // if higest card rank is not current card rank, then swap higestCard
-                if(player.getHighestCard() != cards.get(i - 1)){
+                if (player.getHighestCard() != cards.get(i - 1)) {
                     player.setHighestCard(cards.get(i));
                 }
             }

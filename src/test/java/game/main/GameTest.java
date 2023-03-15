@@ -16,10 +16,8 @@ import java.util.List;
 public class GameTest {
     Game game = new Game();
 
-
     @ParameterizedTest
     @CsvFileSource(resources = "/poker-hands-test-data.csv", numLinesToSkip = 1)
-    //@CsvSource({"2H 4S 4C 2D 4H","2S 8S AS QS 3S","Black wins. - with full house: 4 over 2"})
     public void testGame(String firstHand, String secondHand, String result){
 
         Player firstPlayer = getPlayerObjFromInput(firstHand);

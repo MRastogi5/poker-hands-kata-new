@@ -4,9 +4,9 @@ public enum Rank {
     // Rank can have numeric values 1-14
     // or string values()
     TWO("2", 2),
-    THREE("3",3),
+    THREE("3", 3),
     FOUR("4", 4),
-    FIVE("5",5),
+    FIVE("5", 5),
     SIX("6", 6),
     SEVEN("7", 7),
     EIGHT("8", 8),
@@ -21,6 +21,7 @@ public enum Rank {
         this.cardValue = s;
         this.cardIntValue = i;
     }
+
     Rank(String s) {
         this.cardValue = s;
     }
@@ -36,8 +37,7 @@ public enum Rank {
     private int cardIntValue;
     private String cardValue;
 
-    public static Rank fromValue(String r)
-    {
+    public static Rank fromValue(String r) {
         if (r != null) {
             for (Rank rank : Rank.values())
                 if (rank.getCardValue().equals(r))

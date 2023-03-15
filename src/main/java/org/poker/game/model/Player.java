@@ -9,6 +9,7 @@ public class Player {
     // Each player will have 5 Cards called Hand
 
     private List<Card> cards;
+    private Card highestCard;
 
     public Card getHighestCard() {
         return highestCard;
@@ -21,18 +22,16 @@ public class Player {
     public void setHighestCard(Card highestCard) {
         this.highestCard = highestCard;
     }
-
-    private Card highestCard;
-
     public Player(List<Card> cards) {
         this.cards = cards;
         getSortedCards();
-        highestCard = cards.get(cards.size()-1);
+        highestCard = cards.get(cards.size() - 1);
     }
 
     public List<Card> getCards() {
         return cards;
     }
+
     public List<Card> getSortedCards() {
         Collections.sort(this.cards);
         return cards;
