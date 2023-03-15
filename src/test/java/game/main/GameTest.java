@@ -1,5 +1,7 @@
 package game.main;
 
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.poker.game.main.Game;
 import org.poker.game.model.Card;
 import org.poker.game.model.Player;
@@ -14,63 +16,31 @@ import java.util.List;
 public class GameTest {
     Game game = new Game();
 
-    /*@Test
-    void testSimilarPokerHands(){
-        List<Card> cards1 = new ArrayList<>();
-        cards1.add(new Card(Rank.FIVE, Suit.Spade));
-        cards1.add(new Card(Rank.THREE, Suit.Spade));
-        cards1.add(new Card(Rank.QUEEN, Suit.Club));
-        cards1.add(new Card(Rank.TEN, Suit.Heart));
-        cards1.add(new Card(Rank.TWO, Suit.Diamond));
-        Player firstPlayer = new Player(cards1);
 
-        List<Card> cards2 = new ArrayList<>();
-        cards2.add(new Card(Rank.FIVE, Suit.Club));
-        cards2.add(new Card(Rank.TWO, Suit.Spade));
-        cards2.add(new Card(Rank.QUEEN, Suit.Heart));
-        cards2.add(new Card(Rank.TEN, Suit.Club));
-        cards2.add(new Card(Rank.THREE, Suit.Diamond));
-        Player secondPlayer = new Player(cards2);
+    @ParameterizedTest
+    @CsvFileSource(resources = "/poker-hands-test-data.csv", numLinesToSkip = 1)
+    //@CsvSource({"2H 4S 4C 2D 4H","2S 8S AS QS 3S","Black wins. - with full house: 4 over 2"})
+    public void testGame(String firstHand, String secondHand, String result){
 
-        assertEquals("Tie",
-                game.getWinningPokerHands(firstPlayer, secondPlayer));
-    }*/
+        Player firstPlayer = getPlayerObjFromInput(firstHand);
+        Player secondPlayer = getPlayerObjFromInput(secondHand);
 
-    /*@Test
-    void testSamePokerHands(){
-        List<Card> cards = new ArrayList<>();
-        cards.add(new Card(Rank.TWO, Suit.Heart));
-        cards.add(new Card(Rank.THREE, Suit.Diamond));
-        cards.add(new Card(Rank.FIVE, Suit.Spade));
-        cards.add(new Card(Rank.NINE, Suit.Club));
-        cards.add(new Card(Rank.KING, Suit.Diamond));
-        Player p = new Player(cards);
-        Player firstPlayer = new Player(cards);
-        Player secondPlayer = new Player(cards);
+        Game game = new Game();
+        assertEquals(result, game.getWinningPokerHands(firstPlayer, secondPlayer));
 
-        assertEquals("Invalid",
-                game.getWinningPokerHands(firstPlayer, secondPlayer));
+    }
 
-    }*/
-
-    /*@Test
-    void testSamePokerHands(){
-        List<Card> cards = new ArrayList<>();
-        cards.add(new Card(Rank.TWO, Suit.Heart));
-        cards.add(new Card(Rank.THREE, Suit.Diamond));
-        cards.add(new Card(Rank.FIVE, Suit.Spade));
-        cards.add(new Card(Rank.NINE, Suit.Club));
-        cards.add(new Card(Rank.KING, Suit.Diamond));
-        Player p = new Player(cards);
-        Player firstPlayer = new Player(cards);
-        Player secondPlayer = new Player(cards);
-
-        assertEquals("Invalid",
-                game.getWinningPokerHands(firstPlayer, secondPlayer));
-
-    }*/
-
-
+    private static Player getPlayerObjFromInput(String firstPlayer) {
+        List<Card> inputCards = new ArrayList<>();
+        String[] cardsArr = firstPlayer.split(" ");//[2H, 3D, 5S, 9C, KD]
+        for(String s : cardsArr){
+            Card card = new Card(Rank.fromValue(s.substring(0,s.length()-1)), Suit.fromValue(s.substring(s.length()-1)));
+            inputCards.add(card);
+        }
+        Player player = new Player(inputCards);
+        System.out.println(player.getCards()+ " : "+player.getSortedCards());
+        return player;
+    }
 
 
     @Test

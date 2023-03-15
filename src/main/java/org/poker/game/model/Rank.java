@@ -21,6 +21,9 @@ public enum Rank {
         this.cardValue = s;
         this.cardIntValue = i;
     }
+    Rank(String s) {
+        this.cardValue = s;
+    }
 
     public int getCardIntValue() {
         return cardIntValue;
@@ -32,4 +35,16 @@ public enum Rank {
 
     private int cardIntValue;
     private String cardValue;
+
+    public static Rank fromValue(String r)
+    {
+        if (r != null) {
+            for (Rank rank : Rank.values())
+                if (rank.getCardValue().equals(r))
+                    return rank;
+        }
+
+        throw new IllegalArgumentException("Invalid Card value !!!" + r);
+
+    }
 }

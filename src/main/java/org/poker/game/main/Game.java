@@ -5,37 +5,18 @@ import org.poker.game.model.Player;
 import org.poker.game.model.Rank;
 import org.poker.game.model.Suit;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class Game {
 
-    Player player1;
-    Player player2;
-
     //Poker game will have two player- Black, White
+    // Assumption :
+        // firstPlayer is Black
+        // secondPlayer is White
     public static void main(String[] args) {
-        System.out.println("Hello world!");
 
-        //Black: 2H 3D 5S 9C KD  White: 2D 3H 5C 9S KH
-        List<Card> cards1 = new ArrayList<>();
-        cards1.add(new Card(Rank.TWO, Suit.Heart));
-        cards1.add(new Card(Rank.TWO, Suit.Diamond));
-        cards1.add(new Card(Rank.FIVE, Suit.Spade));
-        cards1.add(new Card(Rank.NINE, Suit.Club));
-        cards1.add(new Card(Rank.KING, Suit.Diamond));
-        Player firstPlayer = new Player(cards1);
-
-        List<Card> cards2 = new ArrayList<>();
-        cards2.add(new Card(Rank.TWO, Suit.Spade));
-        cards2.add(new Card(Rank.ACE, Suit.Diamond));
-        cards2.add(new Card(Rank.FIVE, Suit.Spade));
-        cards2.add(new Card(Rank.NINE, Suit.Diamond));
-        cards2.add(new Card(Rank.KING, Suit.Club));
-
-        Player secondPlayer = new Player(cards2);
         Game game = new Game();
-
-        System.out.println("Winning player : " + game.getWinningPokerHands(firstPlayer, secondPlayer));
     }
 
     public void verifyPokerHands(Player firstPlayer, Player secondPlayer) {
@@ -78,9 +59,9 @@ public class Game {
 
     private static String getWinningHandbyHighCard(Player firstPlayer, Player secondPlayer) {
         if (firstPlayer.getHighestCardRankValue() > secondPlayer.getHighestCardRankValue()) {
-            return "Black wins - with high card : " + firstPlayer.getHighestCard();
+            return "Black wins - with High Card : " + firstPlayer.getHighestCard();
         } else if (firstPlayer.getHighestCardRankValue() < secondPlayer.getHighestCardRankValue()) {
-            return "White wins - with high card : " + secondPlayer.getHighestCard();
+            return "White wins - with High Card : " + secondPlayer.getHighestCard();
         } else {
             return "Tie";
         }
@@ -115,7 +96,7 @@ public class Game {
             player.setHighestCard(sortedCards.get(2));//Middle card
         }
         else if (hasTwoPairs(player)){
-            combinations.put("Two Pair", hasTwoPairs(player));
+            combinations.put("Two Pairs", hasTwoPairs(player));
         }
         else if(hasPair(player)){
             combinations.put("Pair", hasPair(player));
