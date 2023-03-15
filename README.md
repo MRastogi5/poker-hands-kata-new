@@ -2,11 +2,9 @@
 
 ## Assumptions:
 
-	Poker game will have two players - Black, White
-		firstPlayer is Black
-		secondPlayer is White
-	
-	 - Poker game will have two player- Black, White
+	### Poker game will have two players - Black, White
+		### firstPlayer is Black
+		### secondPlayer is White
    - Each player will have 5 Cards called Hand
 	 - Each card have Rank, Suit
 	 - Rank can have values  
