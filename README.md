@@ -1,5 +1,19 @@
 # Poker Hand Kata
 
+# This Poker hand kata solved as a solution to https://codingdojo.org/kata/PokerHands/ kata.
+
+# The task is to compare several pairs of poker hands and to indicate which, if either, has a higher rank.
+## Poker hands are ranked by the following partial order from lowest to highest.
+	- High Card
+	- Pair
+	- Two Pairs
+	- Three of a Kind
+	- Straight
+	- Flush
+	- Full House
+	- Four of a kind
+	- Straight flush
+
 ## Assumptions:
 ### Poker game will have two players - Black, White
 ### firstPlayer is Black
